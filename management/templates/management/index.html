@@ -1,65 +1,41 @@
-{% load static %}
+{% extends "management/layout.html" %}
 
-<!DOCTYPE html>
-<html lang="en">
-    <link rel="shortcut icon" type="image/png" href="static/management/favicon.ico"/>
-    <head>
-        <title>{% block title %}Management{% endblock %}</title>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-        <link href="{% static 'management/styles.css' %}" rel="stylesheet">
-    </head>
-    <body>
-        <h1>Property Management</h1>
-        <div>
-            {% if user.is_authenticated %}
-                <h6>Role: {{  user.role.capitalize  }}</h6>
-                Signed in as <strong>{{ user.username }}</strong>.
-            {% else %}
-                Not signed in.
-            {% endif %}
-        </div>
-        <ul class="nav">
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'index' %}">Home</a>
-            </li>
-            {% if user.is_authenticated %}
-                {%  if user.role == "tenant"  %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'maintenance' %}">Maintenance</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'contact' %}">Contact Us</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'documents' %}">Shared Documents</a>
-                    </li>
-                {%  endif  %}
-                {%  if  user.role == "manager" %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'add_property' %}">Add a property</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'maintenance_requests' %}">Maintenance Requests</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'manager_documents' %}">Shared Documents</a>
-                    </li>
-                {%  endif  %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
-                </li>
-            {% else %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'login' %}">Log In</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'register' %}">Register</a>
-                </li>
-            {% endif %}
-        </ul>
-        <hr>
-        {% block body %}
-        {% endblock %}
-    </body>
-    <script src="{% static 'management/management.js' %}"></script>
-</html>
+{% block body %}
+    {%  if manager  %}
+        <h2>Your Properties</h2>
+        
+        {%  for unit in units  %}
+            <div class="card" style="width: 28rem;">
+                <a href="{%  url 'property_page'  unit.id  %}">
+                    <img src="{{  unit.photo  }}" class="card-img-top">
+                </a>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Lease: ${{  unit.lease  }}</li>
+                    <li class="list-group-item">Squarefeet: {{  unit.sqft  }}sqft</li>
+                    <li class="list-group-item">Number of bed(s): {{  unit.bed  }}</li>
+                    <li class="list-group-item">Number of bath(s): {{  unit.bath  }}</li>
+                    <li class="list-group-item">Location: {{  unit.location  }}</li>
+                </ul>
+            </div>
+            <br>
+        {%  endfor  %}
+    {%  endif  %}
+
+    {%  if tenant  %}
+        <h2>Your Unit</h2>
+        
+        {%  for unit in units  %}
+            <div class="card" style="width: 25rem;">
+                <img src="{{  unit.photo  }}" class="card-img-top">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Lease: ${{  unit.lease  }}</li>
+                    <li class="list-group-item">Squarefeet: {{  unit.sqft  }}sqft</li>
+                    <li class="list-group-item">Number of bed(s): {{  unit.bed  }}</li>
+                    <li class="list-group-item">Number of bath(s): {{  unit.bath  }}</li>
+                    <li class="list-group-item">Location: {{  unit.location  }}</li>
+                </ul>
+            </div>
+        {%  endfor  %}
+    {%  endif  %}
+
+    {% endblock %}
