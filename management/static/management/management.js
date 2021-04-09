@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Gives the ability to add a tenant to a property
     document.querySelector('#add_tenant').onclick = () => {
         const b = document.querySelector('#add_tenant');
-
+    
         // Create an empty form
         if (b.innerHTML === "Add a tenant") {
             var content = document.createElement("textarea");                
@@ -36,6 +36,7 @@ document.addEventListener('DOMContentLoaded', function() {
             document.body.appendChild(content);
             b.innerHTML = 'Submit';
         } else {
+            console.log("test")
             var form = new FormData();
             form.append('email', b.parentElement.childNodes[21].value);
             form.append('unit_id', b.dataset.unit);
