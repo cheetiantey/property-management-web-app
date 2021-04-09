@@ -1,0 +1,20 @@
+{% extends "management/layout.html" %}
+
+{% block body %}
+    <h2>Shared Documents</h2>    
+    <form method="post" enctype="multipart/form-data">
+        {%  csrf_token  %}
+        {{  form.as_p  }}
+        <button type="submit" class="btn btn-primary">Upload file</button>
+    </form>
+    {%  if documents%}
+        <br>
+        <h4>Uploaded Documents:</h4>
+    {%  endif  %}
+    {%  for document in documents %}
+        <ul>
+            <li><a href="http://127.0.0.1:8000/media/{{  document.uploaded_file  }}">{{  document.title  }}</a></li>
+        </ul>
+    {%  endfor  %}
+
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends "management/layout.html" %}
+
+{% block body %}
+    <h2>Manage Your Maintenance Requests</h2>
+    
+    {%  for unit in units  %}
+        <div class="card" style="width: 28rem;">
+            <a href="{%  url 'maintenance_requests_specific'  unit.id  %}">
+                <img src="{{  unit.photo  }}" class="card-img-top" alt="...">
+            </a>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">{{  unit.location  }}</li>
+            </ul>
+        </div>
+        <br>
+    {%  endfor  %}
+
+{% endblock %}

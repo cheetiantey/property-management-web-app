@@ -1,0 +1,19 @@
+{% extends "management/layout.html" %}
+
+{% block body %}
+    <h2>Contact Us</h2>
+
+    {%  if contact  %}
+        <div class="card mx-auto w-100 m-3">
+            <div class="card-body">
+                <h4 class="card-title">Call or Email us at:</h4>
+
+                <p class="card-text">+1 ({{ contact.phone_number | slice:"0:3"  }}) {{ contact.phone_number | slice:"3:6"  }}-{{ contact.phone_number | slice:"6:9"  }}</p>
+                <p class="card-text">{{ contact.email }}</p>
+                
+                <br>
+            </div>
+        </div>
+
+    {%  endif  %}
+{% endblock %}

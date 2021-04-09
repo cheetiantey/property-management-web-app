@@ -1,0 +1,44 @@
+{% extends "management/layout.html" %}
+
+{% block body %}
+
+    <h2>Maintenance request</h2>
+    
+    <form action="{% url 'maintenance' %}" method="post">
+        {% csrf_token %}
+        {{  form  }}
+        <br>
+        <input class="btn btn-primary" type="submit" value="Submit">
+    </form>
+    
+    <br>
+    {%  if unresolved_requests  %}
+        <h4 style='color:red'>Unresolved Maintenance requests:</h4>
+        {%  for request in unresolved_requests  %}
+            <div class="card mx-auto w-100 m-3">
+                <div class="card-body">
+                    <p class="card-text">{{ request.content }}</p>
+                    
+                    <span style="color: gray">{{  request.timestamp  }}</span>
+                    <br>
+                </div>
+            </div>
+        {%  endfor  %}
+    {%  endif  %}
+
+    <br>
+    
+    {%  if resolved_requests  %}
+        <h4 style='color:green'>Resolved Maintenance requests:</h4>
+        {%  for request in resolved_requests  %}
+            <div class="card mx-auto w-100 m-3">
+                <div class="card-body">
+                    <p class="card-text">{{ request.content }}</p>
+                    
+                    <span style="color: gray">{{  request.timestamp  }}</span>
+                    <br>
+                </div>
+            </div>
+        {%  endfor  %}
+    {%  endif  %}
+{% endblock %}

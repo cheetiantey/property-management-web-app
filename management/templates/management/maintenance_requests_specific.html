@@ -1,0 +1,33 @@
+{% extends "management/layout.html" %}
+
+{% block body %}
+    <h2>Maintenance Requests</h2>
+
+    {%  for request in requests  %}
+        <div class="card mx-auto w-100 m-3">
+            <div class="card-body">
+                {%  if request.resolved  %}
+                    <h4 style="color:green" class="card-title" id="maintenance_title{{  request.id  }}" data-request="{{  request_id  }}">Resolved</h4>
+                {%  endif  %}
+
+                {%  if not request.resolved  %}
+                    <h4 style="color:red" class="card-title" id="maintenance_title{{  request.id  }}" data-request="{{  request_id  }}">Unresolved</h4>
+                {%  endif  %} 
+
+                <p class="card-text">{{ request.content }}</p>
+                
+                <span style="color: gray">{{  request.timestamp  }}</span>
+                <br>
+
+                {%  if request.resolved  %}
+                    <a class="resolve" data-request="{{  request.id  }}" href="#">Mark as unresolved</a>
+                {%  endif  %}
+
+                {%  if not request.resolved  %}
+                    <a class="resolve" data-request="{{  request.id  }}" href="#">Mark as resolved</a>
+                {%  endif  %}
+            </div>
+        </div>
+
+    {%  endfor  %}
+{% endblock %}

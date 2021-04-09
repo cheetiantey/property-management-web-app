@@ -1,0 +1,41 @@
+{% extends "management/layout.html" %}
+
+{% block body %}
+    {%  if manager  %}
+        <h2>Your Properties</h2>
+        
+        {%  for unit in units  %}
+            <div class="card" style="width: 28rem;">
+                <a href="{%  url 'property_page'  unit.id  %}">
+                    <img src="{{  unit.photo  }}" class="card-img-top" alt="...">
+                </a>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Lease: ${{  unit.lease  }}</li>
+                    <li class="list-group-item">Squarefeet: {{  unit.sqft  }}sqft</li>
+                    <li class="list-group-item">Number of bed(s): {{  unit.bed  }}</li>
+                    <li class="list-group-item">Number of bath(s): {{  unit.bath  }}</li>
+                    <li class="list-group-item">Location: {{  unit.location  }}</li>
+                </ul>
+            </div>
+            <br>
+        {%  endfor  %}
+    {%  endif  %}
+
+    {%  if tenant  %}
+        <h2>Your Unit</h2>
+        
+        {%  for unit in units  %}
+            <div class="card" style="width: 25rem;">
+                <img src="{{  unit.photo  }}" class="card-img-top" alt="...">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Lease: ${{  unit.lease  }}</li>
+                    <li class="list-group-item">Squarefeet: {{  unit.sqft  }}sqft</li>
+                    <li class="list-group-item">Number of bed(s): {{  unit.bed  }}</li>
+                    <li class="list-group-item">Number of bath(s): {{  unit.bath  }}</li>
+                    <li class="list-group-item">Location: {{  unit.location  }}</li>
+                </ul>
+            </div>
+        {%  endfor  %}
+    {%  endif  %}
+
+    {% endblock %}
