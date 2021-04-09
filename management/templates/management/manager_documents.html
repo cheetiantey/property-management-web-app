@@ -5,7 +5,7 @@
     
     {%  for unit in units  %}
         <div class="card" style="width: 28rem;">
-            <a href="{%  url 'maintenance_requests_specific'  unit.id  %}">
+            <a href="{%  url 'manager_documents_specific'  unit.id  %}">
                 <img src="{{  unit.photo  }}" class="card-img-top" alt="...">
             </a>
             <ul class="list-group list-group-flush">
