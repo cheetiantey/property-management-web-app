@@ -151,20 +151,32 @@ def maintenance(request):
         })
 
     else:
-        unit_id = Tenant.objects.get(email=request.user.email).unit
-        return render(request, "management/maintenance.html", {
-            "form": addMaintenanceForm(),
-            "resolved_requests": Maintenance.objects.filter(unit=unit_id, resolved="True"),
-            "unresolved_requests": Maintenance.objects.filter(unit=unit_id, resolved="False")
-        })
+	try:
+            unit_id = Tenant.objects.get(email=request.user.email).unit
+            return render(request, "management/maintenance.html", {
+                "form": addMaintenanceForm(),
+                "resolved_requests": Maintenance.objects.filter(unit=unit_id, resolved="True"),
+                "unresolved_requests": Maintenance.objects.filter(unit=unit_id, resolved="False")
+            })
+        except Tenant.DoesNotExist:
+            return render(request, "management/message.html",{
+		"header": "Maintenance Requests",
+                "message": "You don't live in a property yet."
+            })
 
 def contact(request):
-    unit_id = Tenant.objects.get(email=request.user.email).unit.id
-    manager_id = Unit.objects.get(id=unit_id).manager.id
-    return render(request, "management/contact.html", {
-        # Contact information of the manager 
-        "contact": User.objects.get(id=manager_id)
-    })
+    try:
+        unit_id = Tenant.objects.get(email=request.user.email).unit.id
+        manager_id = Unit.objects.get(id=unit_id).manager.id
+        return render(request, "management/contact.html", {
+            # Contact information of the manager 
+            "contact": User.objects.get(id=manager_id)
+        })
+    except Tenant.DoesNotExist:
+        return render(request, "management/message.html",{
+	    "header": "Contact Us",
+            "message": "You don't live in a property yet."
+        })
 
 def add_property(request):
     # Ensure that the user accessing this page is a manger
@@ -271,7 +283,8 @@ def documents(request):
             })
         # The tenant is not living in any unit
         except Tenant.DoesNotExist:
-            return render(request, "management/not_tenant_documents.html",{
+            return render(request, "management/message.html",{
+		"header": "Shared Documents",
                 "message": "You don't live in a property yet."
             })
         # The tenant does not have any documents
