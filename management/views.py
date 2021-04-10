@@ -149,9 +149,8 @@ def maintenance(request):
             "resolved_requests": Maintenance.objects.filter(unit=unit_id, resolved="True"),
             "unresolved_requests": Maintenance.objects.filter(unit=unit_id, resolved="False")
         })
-
     else:
-	try:
+        try:
             unit_id = Tenant.objects.get(email=request.user.email).unit
             return render(request, "management/maintenance.html", {
                 "form": addMaintenanceForm(),
@@ -159,8 +158,8 @@ def maintenance(request):
                 "unresolved_requests": Maintenance.objects.filter(unit=unit_id, resolved="False")
             })
         except Tenant.DoesNotExist:
-            return render(request, "management/message.html",{
-		"header": "Maintenance Requests",
+            return render(request, "management/message.html", {
+                "header": "Maintenance requests",
                 "message": "You don't live in a property yet."
             })
 
