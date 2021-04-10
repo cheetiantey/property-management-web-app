@@ -26,38 +26,43 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Gives the ability to add a tenant to a property
-    document.querySelector('#add_tenant').onclick = () => {
-        const b = document.querySelector('#add_tenant');
+    var el = document.querySelector('#add_tenant')
+    if(el) {
+        el.addEventListener("click",  () => {
+            const b = document.querySelector('#add_tenant');
+        
+            // Create an empty form
+            if (b.innerHTML === "Add a tenant") {
+                var content = document.createElement("textarea");                
+                content.className = 'form-control';
+                document.body.appendChild(content);
+                b.innerHTML = 'Submit';
+            } else {
+                console.log("test")
+                console.log(b.parentElement.childNodes[21].value)
+                var form = new FormData();
+                form.append('email', b.parentElement.childNodes[21].value);
+                form.append('unit_id', b.dataset.unit);
     
-        // Create an empty form
-        if (b.innerHTML === "Add a tenant") {
-            var content = document.createElement("textarea");                
-            content.className = 'form-control';
-            document.body.appendChild(content);
-            b.innerHTML = 'Submit';
-        } else {
-            console.log("test")
-            var form = new FormData();
-            form.append('email', b.parentElement.childNodes[21].value);
-            form.append('unit_id', b.dataset.unit);
-
-            // Submit the form via POST
-            fetch("/add_tenant", {
-                method: 'POST',
-                body: form,
-            })
-            .then(() => {
-                document.querySelector('.form-control').style.display = 'none';
-                b.innerHTML = "Add a tenant";
-
-                // Append the email to the <li> of "People living in this property"
-                var email = document.createElement("li")
-                var content = document.createTextNode(b.parentElement.childNodes[21].value)
-                email.appendChild(content);
+                // Submit the form via POST
+                fetch("/add_tenant", {
+                    method: 'POST',
+                    body: form,
+                })
+                .then(() => {
+                    document.querySelector('.form-control').style.display = 'none';
+                    b.innerHTML = "Add a tenant";
     
-                var person = document.getElementById("people")
-                person.appendChild(email);
-            })
-        }
+                    // Append the email to the <li> of "People living in this property"
+                    var email = document.createElement("li")
+                    var content = document.createTextNode(b.parentElement.childNodes[21].value)
+                    email.appendChild(content);
+        
+                    var person = document.getElementById("people")
+                    person.appendChild(email);
+                })
+            }
+        })
+
     }
 })
