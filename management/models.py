@@ -13,6 +13,9 @@ class Unit(models.Model):
     bath = models.IntegerField()
     photo = models.CharField(max_length=500, default=None)
     location = models.TextField()
+    
+    def is_valid_unit(self):
+        return self.lease > 0 and self.sqft > 0 and self.bed != 0 and self.bath != 0 
 
 class Tenant(models.Model):
     unit = models.ForeignKey(Unit, on_delete=models.CASCADE, default=None)
