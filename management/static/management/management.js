@@ -33,15 +33,17 @@ document.addEventListener('DOMContentLoaded', function() {
         
             // Create an empty form
             if (b.innerHTML === "Add a tenant") {
-                var content = document.createElement("textarea");                
+                var content = document.createElement("textarea");     
+                content.id = 'email';
                 content.className = 'form-control';
                 document.body.appendChild(content);
                 b.innerHTML = 'Submit';
             } else {
                 console.log("test")
-                console.log(b.parentElement.childNodes[21].value)
+                // console.log(b.parentElement.childNodes[21].value)
+                console.log(document.getElementById('email').value)
                 var form = new FormData();
-                form.append('email', b.parentElement.childNodes[21].value);
+                form.append('email', document.getElementById('email').value);
                 form.append('unit_id', b.dataset.unit);
     
                 // Submit the form via POST
@@ -55,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
                     // Append the email to the <li> of "People living in this property"
                     var email = document.createElement("li")
-                    var content = document.createTextNode(b.parentElement.childNodes[21].value)
+                    var content = document.createTextNode(document.getElementById('email').value)
                     email.appendChild(content);
         
                     var person = document.getElementById("people")
