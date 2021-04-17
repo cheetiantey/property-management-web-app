@@ -3,24 +3,26 @@
 {% block body %}
     <h2>Property</h2>
 
-    {%  if unit.photo  %}
-        <img src="{{  unit.photo  }}" width="20%" height="20%">
-    {%  endif  %}
-
-    <ul>
-        <li>Lease: ${{  unit.lease  }}</li>
-        <li>Squarefeet: {{  unit.sqft  }}sqft</li>
-        <li>Number of bed(s): {{  unit.bed  }}</li>
-        <li>Number of bath(s): {{  unit.bath  }}</li>
-        <li>Location: {{  unit.location  }}</li>
-        <li>People living in this property:
-            <ul id="people">
-                {%  for person in people  %}
-                    <li>{{  person.email  }}</li>
-                {%  endfor  %}
-            </ul>
-        </li>
-    </ul>
+    <div class="card" style="width: 28rem;">
+        <a href="{%  url 'property_page'  unit.id  %}">
+            <img src="{{  unit.photo  }}" class="card-img-top">
+        </a>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">Lease: ${{  unit.lease  }}</li>
+            <li class="list-group-item">Squarefeet: {{  unit.sqft  }}sqft</li>
+            <li class="list-group-item">Number of bed(s): {{  unit.bed  }}</li>
+            <li class="list-group-item">Number of bath(s): {{  unit.bath  }}</li>
+            <li class="list-group-item">Location: {{  unit.location  }}</li>
+            <li class="list-group-item">People living in this property:
+                <ul id="people">
+                    {%  for person in people  %}
+                        <li>{{  person.email  }}</li>
+                    {%  endfor  %}
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <br>
 
     <button class="btn btn-primary" id="add_tenant" data-unit="{{  unit.id  }}" href="#">Add a tenant</button> <br>
 
