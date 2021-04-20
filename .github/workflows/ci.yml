@@ -11,4 +11,5 @@ jobs:
         pip3 install --user django
         pip3 install --user dj-database-url
         pip3 install --user psycopg2
+        pip3 install --user sentry-sdk
         python3 manage.py test
