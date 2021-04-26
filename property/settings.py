@@ -92,6 +92,7 @@ WSGI_APPLICATION = 'property.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
+# Uses sqlite3 by default but if deployed on Heroku, Postgres will be used instead
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
