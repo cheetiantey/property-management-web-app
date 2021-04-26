@@ -4,12 +4,12 @@
 <html lang="en">
     <link rel="shortcut icon" type="image/png" href="static/management/favicon.ico"/>
     <head>
-        <title>{% block title %}Real Appfolio{% endblock %}</title>
+        <title>{% block title %}Property Management{% endblock %}</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <link href="{% static 'management/styles.css' %}" rel="stylesheet">
     </head>
     <body>
-        <h1>Real Real Appfolio</h1>
+        <h1>Property Management Web App</h1>
         <div>
             {% if user.is_authenticated %}
                 <h6>Role: {{  user.role.capitalize  }}</h6>
